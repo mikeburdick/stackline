@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/stackline/static/css/main.d3708f3a.css",
+    "main.js": "/stackline/static/js/main.f0c0cd56.js",
+    "static/js/453.68693753.chunk.js": "/stackline/static/js/453.68693753.chunk.js",
+    "static/media/stackline_logo.svg": "/stackline/static/media/stackline_logo.5935081bd899ecfe02395699e768f84e.svg",
+    "index.html": "/stackline/index.html",
+    "main.d3708f3a.css.map": "/stackline/static/css/main.d3708f3a.css.map",
+    "main.f0c0cd56.js.map": "/stackline/static/js/main.f0c0cd56.js.map",
+    "453.68693753.chunk.js.map": "/stackline/static/js/453.68693753.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3708f3a.css",
+    "static/js/main.f0c0cd56.js"
+  ]
+}
