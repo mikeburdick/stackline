@@ -33,7 +33,7 @@
   width: 100%;
 }
 
-.Panels {
+.InnerPanels {
   display: flex;
   flex-flow: row;
   height: 100%;
@@ -97,12 +97,12 @@
 
 .SalesTop {
   height: fit-content;
-  padding: 5px;
+  margin-top: 2px;
+  margin-left: 20px;
+  padding: 10px;
 }
+
 .SalesBottom {
   flex-grow: 1;
   padding: 2px;
 }
-
-
-

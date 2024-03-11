@@ -10,7 +10,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </div>
       <div className="PanelContainer">
-        <div className="Panels">
+        <div className="InnerPanels">
           <div className="LeftPanel">
             <ProductDetails />
           </div>
