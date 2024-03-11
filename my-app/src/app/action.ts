@@ -7,7 +7,6 @@ export const requestUsers = (data: any) => async (dispatch: any) => {
   });
   try {
     const json = myData;
-    console.log(json);
     dispatch({
       type: USER.LOAD_SUCCESS,
       usersData: json,
