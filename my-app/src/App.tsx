@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
 import logo from './stackline_logo.svg';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { requestUsers } from './app/action';
 import ProductDetails from './ProductDetails';
 import ProductSales from './ProductSales';
 

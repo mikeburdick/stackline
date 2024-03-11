@@ -1,6 +1,4 @@
-import { current } from '@reduxjs/toolkit';
 import './App.css';
-import myData from './data.json';
 import {
     LineChart,
     Line,
@@ -11,6 +9,11 @@ import {
     Legend,
     ResponsiveContainer
 } from "recharts";
+import { IData, ISelectorState } from './app/userReducer';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { shallowEqual } from 'react-redux';
+import { useEffect } from 'react';
+import { requestUsers } from './app/action';
 
 interface chartData {
     weekEnding: string;
@@ -61,9 +64,8 @@ function GetMonthString(month: number): string {
     }
 }
 
-function ProductSales() {
-    const json = myData;
-    const data = json[0].sales.map(f => (
+function FixupDates(data2: IData): chartData[] {
+    const data = data2.sales.map(f => (
         {
             weekEnding: f.weekEnding + 'Z',
             retailSales: f.retailSales,
@@ -77,7 +79,7 @@ function ProductSales() {
         const month = date.getUTCMonth() + 1;
         const monthString = GetMonthString(month);
 
-        if (monthString != currentMonth) {
+        if (monthString !== currentMonth) {
             currentMonth = monthString;
             data[i].weekEnding = monthString;
         }
@@ -86,38 +88,54 @@ function ProductSales() {
         }
     }
 
+    return data;
+}
+
+function ProductSales() {
+    const selector = useAppSelector(state => { return state.users }, shallowEqual) as ISelectorState;
+    const dispatch = useAppDispatch() as any;
+
+    useEffect(() => {
+        dispatch(requestUsers(''));
+    });
+
     return (
-        <div className="Sales">
-            <div className="SalesTop">
-                <p><b>Product Sales</b></p>
-            </div>
-            <div className="SalesBottom">
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                        data={data}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 10,
-                            bottom: 5
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="weekEnding" />
-                        <YAxis tick={false} />
-                        <Tooltip />
-                        <Legend />
-                        <Line
-                            type="monotone"
-                            dataKey="retailSales"
-                            stroke="#8482ca"
-                            activeDot={{ r: 8 }}
-                        />
-                        <Line type="monotone" dataKey="wholesaleSales" stroke="#0d0808" />
-                    </LineChart>
-                </ResponsiveContainer>
-            </div>
-        </div>
+        <>
+            {selector.isLoading && <div>Data loading...</div>}
+            {!selector.isLoading && !selector.isError &&
+                <div className="Sales">
+                    <div className="SalesTop">
+                        <p><b>Product Sales</b></p>
+                    </div>
+                    <div className="SalesBottom">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                                data={FixupDates(selector.usersData![0])}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 10,
+                                    bottom: 5
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="weekEnding" />
+                                <YAxis tick={false} />
+                                <Tooltip />
+                                <Legend />
+                                <Line
+                                    type="monotone"
+                                    dataKey="retailSales"
+                                    stroke="#8482ca"
+                                    activeDot={{ r: 8 }}
+                                />
+                                <Line type="monotone" dataKey="wholesaleSales" stroke="#0d0808" />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            }
+        </>
     );
 }
 
