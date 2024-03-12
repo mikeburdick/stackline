@@ -2,6 +2,7 @@ import logo from './stackline_logo.svg';
 import './App.css';
 import ProductDetails from './ProductDetails';
 import ProductSales from './ProductSales';
+import ProductGrid from './ProductGrid';
 
 function App() {
   return (
@@ -15,7 +16,14 @@ function App() {
             <ProductDetails />
           </div>
           <div className="RightPanel">
-            <ProductSales />
+            <div className='InnerRightPanels'>
+              <div className="RightGraphPanel">
+                <ProductSales />
+              </div>
+              <div className="RightGridPanel">
+                <ProductGrid />
+              </div>
+            </div>
           </div>
         </div>
       </div>

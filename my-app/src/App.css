@@ -42,14 +42,74 @@
 
 .LeftPanel {
   flex: 1;
-  margin: 2px;
-  padding: 2px;
+  margin: 3px;
+  padding: 3px;
 }
 
 .RightPanel {
   flex: 4;
+  margin: 2px;
+  padding: 2px;
+}
+
+.InnerRightPanels {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+}
+
+.RightGraphPanel {
+  flex-grow: 1;
+  margin: 2px;
+  padding: 2px;
+}
+
+.RightGridPanel {
+  height: 200px;
   margin: 3px;
   padding: 3px;
+  background-color: white;
+}
+
+.ProductGrid {
+  height: 200px;
+  width: 100%;
+}
+
+.GridContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  height: 200px;
+}
+
+.GridColumn {
+  flex: 1;
+  height: fit-content;
+}
+
+.GridHeader {
+  background-color: darkgray;
+  border: 2px solid black;
+}
+
+.GridCell {
+  background-color: lightgray;
+  border: 2px solid black;
+}
+
+.HeaderColumn {
+  Display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  border: 2px solid lightgray;
+  margin: 1px;
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  padding-right: 5px;
 }
 
 .Detail {
@@ -97,9 +157,9 @@
 
 .SalesTop {
   height: fit-content;
-  margin-top: 2px;
+  margin-top: 1px;
   margin-left: 20px;
-  padding: 10px;
+  padding: 1px;
 }
 
 .SalesBottom {
