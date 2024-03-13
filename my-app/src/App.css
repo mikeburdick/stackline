@@ -57,6 +57,7 @@
   flex-flow: column;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .RightGraphPanel {
@@ -66,27 +67,30 @@
 }
 
 .RightGridPanel {
-  height: 200px;
+  flex: 1;
   margin: 3px;
   padding: 3px;
   background-color: white;
 }
 
 .ProductGrid {
-  height: 200px;
+  height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .GridContainer {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  height: 200px;
+  height: 197px;
+  margin: 3px;
+  padding: 3px;
 }
 
 .GridColumn {
   flex: 1;
-  height: fit-content;
+  height: 100%;
 }
 
 .GridHeader {

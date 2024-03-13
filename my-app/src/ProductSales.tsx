@@ -107,7 +107,7 @@ function ProductSales() {
                                 }}
                             >
                                 <CartesianGrid horizontal={false} vertical={false} />
-                                <XAxis dataKey='weekEnding' interval={0}  />
+                                <XAxis dataKey='weekEnding' interval={0} />
                                 <YAxis tick={false} />
                                 <Tooltip />
                                 <Legend />
@@ -118,10 +118,10 @@ function ProductSales() {
                                     stroke="#8482ca"
                                     activeDot={{ r: 8 }}
                                 />
-                                <Line 
+                                <Line
                                     name='Wholesale Sales'
-                                    type="monotone" 
-                                    dataKey="wholesaleSales" 
+                                    type="monotone"
+                                    dataKey="wholesaleSales"
                                     stroke="#0d0808" />
                             </LineChart>
                         </ResponsiveContainer>

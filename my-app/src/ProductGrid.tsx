@@ -11,36 +11,89 @@ const WholeSalesSalesHeader = 'Wholesale Sales';
 const UnitsSoldHeader = 'Units Sold';
 const RetailerMarginHeader = 'Retailer Margin';
 
-function BuildColumn(headerText: string, data: IData) {
-    var cells = data.sales.map(function (line, i) {
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+function BuildWeekEndingColumn(data: IData) {
+    const cells = data.sales.map(function (line, i) {
         return (
-            <>
-                {headerText === WeekendingHeader &&
-                    <div className='GridCell' key={headerText + i}>{line.weekEnding}</div>
-                }
-                {headerText === RetailSalesHeader &&
-                    <div className='GridCell' key={headerText + i}>{line.retailSales}</div>
-                }
-                {headerText === WholeSalesSalesHeader &&
-                    <div className='GridCell' key={headerText + i}>{line.wholesaleSales}</div>
-                }
-                {headerText === UnitsSoldHeader &&
-                    <div className='GridCell' key={headerText + i}>{line.unitsSold}</div>
-                }
-                {headerText === RetailerMarginHeader &&
-                    <div className='GridCell' key={headerText + i}>{line.retailerMargin}</div>
-                }
-            </>
+            <div className='GridCell' key={line.weekEnding + WeekendingHeader + i}>{line.weekEnding}</div>
         );
     });
 
     return (
-        <div className='GridColumn'>
-            <div className='GridHeader'>{headerText}</div>
+        <div className='GridColumn' key={'GridColumn' + WeekendingHeader}>
+            <div className='GridHeader' key={'GridHeader' + WeekendingHeader}>{WeekendingHeader}</div>
             {cells}
         </div>
     );
-}
+};
+
+function BuildRetailSalesColumn(data: IData) {
+    const cells = data.sales.map(function (line, i) {
+        return (
+            <div className='GridCell' key={line.weekEnding + RetailSalesHeader + i}>{formatter.format(line.retailSales)}</div>
+        );
+    });
+
+    return (
+        <div className='GridColumn' key={'GridColumn' + RetailSalesHeader}>
+            <div className='GridHeader' key={'GridHeader' + RetailSalesHeader}>{RetailSalesHeader}</div>
+            {cells}
+        </div>
+    );
+};
+
+function BuildWholeSalesSalesColumn(data: IData) {
+    const cells = data.sales.map(function (line, i) {
+        return (
+            <div className='GridCell' key={line.weekEnding + WholeSalesSalesHeader + i}>{formatter.format(line.wholesaleSales)}</div>
+        );
+    });
+
+    return (
+        <div className='GridColumn' key={'GridColumn' + WholeSalesSalesHeader}>
+            <div className='GridHeader' key={'GridHeader' + WholeSalesSalesHeader}>{WholeSalesSalesHeader}</div>
+            {cells}
+        </div>
+    );
+};
+
+function BuildRetailerMarginColumn(data: IData) {
+    const cells = data.sales.map(function (line, i) {
+        return (
+            <div className='GridCell' key={line.weekEnding + RetailerMarginHeader + i}>{formatter.format(line.retailerMargin)}</div>
+        );
+    });
+
+    return (
+        <div className='GridColumn' key={'GridColumn' + RetailerMarginHeader}>
+            <div className='GridHeader' key={'GridHeader' + RetailerMarginHeader}>{RetailerMarginHeader}</div>
+            {cells}
+        </div>
+    );
+};
+
+function BuildUnitsSoldColumn(data: IData) {
+    const cells = data.sales.map(function (line, i) {
+        return (
+            <div className='GridCell' key={line.weekEnding + UnitsSoldHeader + i}>{line.unitsSold}</div>
+        );
+    });
+
+    return (
+        <div className='GridColumn' key={'GridColumn' + UnitsSoldHeader}>
+            <div className='GridHeader' key={'GridHeader' + UnitsSoldHeader}>{UnitsSoldHeader}</div>
+            {cells}
+        </div>
+    );
+};
 
 function ProductGrid() {
     const selector = useAppSelector(state => { return state.users }, shallowEqual) as ISelectorState;
@@ -56,11 +109,11 @@ function ProductGrid() {
             {!selector.isLoading && !selector.isError &&
                 <div className='ProductGrid'>
                     <div className='GridContainer'>
-                        {BuildColumn(WeekendingHeader, selector.usersData![0])}
-                        {BuildColumn(RetailSalesHeader, selector.usersData![0])}
-                        {BuildColumn(WholeSalesSalesHeader, selector.usersData![0])}
-                        {BuildColumn(UnitsSoldHeader, selector.usersData![0])}
-                        {BuildColumn(RetailerMarginHeader, selector.usersData![0])}
+                        {BuildWeekEndingColumn(selector.usersData![0])}
+                        {BuildRetailSalesColumn(selector.usersData![0])}
+                        {BuildWholeSalesSalesColumn(selector.usersData![0])}
+                        {BuildUnitsSoldColumn(selector.usersData![0])}
+                        {BuildRetailerMarginColumn(selector.usersData![0])}
                     </div>
                 </div>
             }
